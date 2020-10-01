@@ -60,7 +60,7 @@ static void add_default_include_paths(char *argv0) {
 
   // Add standard include paths.
   strarray_push(&include_paths, "/usr/local/include");
-  strarray_push(&include_paths, "/usr/include/x86_64-linux-gnu");
+  strarray_push(&include_paths, "/usr/include/x86_64-pc-linux-gnu");
   strarray_push(&include_paths, "/usr/include");
 
   // Keep a copy of the standard include paths for -MMD option.
@@ -599,20 +599,20 @@ static void run_linker(StringArray *inputs, char *output) {
   strarray_push(&arr, "elf_x86_64");
 
   if (opt_shared) {
-    strarray_push(&arr, "/usr/lib/x86_64-linux-gnu/crti.o");
-    strarray_push(&arr, "/usr/lib/gcc/x86_64-linux-gnu/9/crtbeginS.o");
+    strarray_push(&arr, "/usr/lib/crti.o");
+    strarray_push(&arr, "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbeginS.o");
   } else {
-    strarray_push(&arr, "/usr/lib/x86_64-linux-gnu/crt1.o");
-    strarray_push(&arr, "/usr/lib/x86_64-linux-gnu/crti.o");
-    strarray_push(&arr, "/usr/lib/gcc/x86_64-linux-gnu/9/crtbegin.o");
+    strarray_push(&arr, "/usr/lib/crt1.o");
+    strarray_push(&arr, "/usr/lib/crti.o");
+    strarray_push(&arr, "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtbegin.o");
   }
 
-  strarray_push(&arr, "-L/usr/lib/gcc/x86_64-linux-gnu/9");
-  strarray_push(&arr, "-L/usr/lib/x86_64-linux-gnu");
+  strarray_push(&arr, "-L/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0");
+  strarray_push(&arr, "-L/usr/lib/x86_64-pc-linux-gnu");
   strarray_push(&arr, "-L/usr/lib64");
-  strarray_push(&arr, "-L/lib/x86_64-linux-gnu");
+  strarray_push(&arr, "-L/lib/x86_64-pc-linux-gnu");
   strarray_push(&arr, "-L/lib64");
-  strarray_push(&arr, "-L/usr/lib/x86_64-linux-gnu");
+  strarray_push(&arr, "-L/usr/lib/x86_64-pc-linux-gnu");
   strarray_push(&arr, "-L/usr/lib");
   strarray_push(&arr, "-L/lib");
 
@@ -642,11 +642,11 @@ static void run_linker(StringArray *inputs, char *output) {
   }
 
   if (opt_shared)
-    strarray_push(&arr, "/usr/lib/gcc/x86_64-linux-gnu/9/crtendS.o");
+    strarray_push(&arr, "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtendS.o");
   else
-    strarray_push(&arr, "/usr/lib/gcc/x86_64-linux-gnu/9/crtend.o");
+    strarray_push(&arr, "/usr/lib/gcc/x86_64-pc-linux-gnu/10.2.0/crtend.o");
 
-  strarray_push(&arr, "/usr/lib/x86_64-linux-gnu/crtn.o");
+  strarray_push(&arr, "/usr/lib/crtn.o");
   strarray_push(&arr, NULL);
 
   run_subprocess(arr.data);
